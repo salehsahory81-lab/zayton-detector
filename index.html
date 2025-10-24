@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zayton Scan - كاشف زيت الزيتون المنزلي</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- الرأس -->
+        <header>
+            <h1>🔍 Zayton Scan</h1>
+            <p>كاشف ذكي لفحص جودة زيت الزيتون</p>
+            <div class="accuracy-badge">دقة 95%</div>
+        </header>
+
+        <!-- تحذير التوجيه -->
+        <div class="orientation-warning" id="orientation-warning">
+            ⚠️ يرجى تدوير الهاتف إلى الوضع الأفقي
+        </div>
+
+        <!-- تقدم الفحص -->
+        <div class="progress-section">
+            <div class="progress-step active" id="step1">
+                <div class="step-number">1</div>
+                <div class="step-label">فحص الجودة (A)</div>
+            </div>
+            <div class="progress-step" id="step2">
+                <div class="step-number">2</div>
+                <div class="step-label">فحص الخلط (B)</div>
+            </div>
+            <div class="progress-step" id="step3">
+                <div class="step-number">3</div>
+                <div class="step-label">النتيجة</div>
+            </div>
+        </div>
+
+        <!-- قسم الكاميرا -->
+        <div class="camera-section">
+            <div class="camera-frame">
+                <video id="video" autoplay playsinline></video>
+                <canvas id="canvas" style="display:none;"></canvas>
+                
+                <!-- شبكة التوجيه -->
+                <div class="grid-overlay">
+                    <div class="grid-line horizontal"></div>
+                    <div class="grid-line vertical"></div>
+                    <div class="target-circle"></div>
+                </div>
+            </div>
+            
+            <!-- أزرار التحكم -->
+            <div class="control-buttons">
+                <button id="quality-btn" class="test-btn active">فحص الجودة (A)</button>
+                <button id="adulteration-btn" class="test-btn">فحص الخلط (B)</button>
+                <button id="capture-btn" class="action-btn">📸 مسح العبوة</button>
+                
+                <!-- قسم الفحص الزمني -->
+                <div id="time-test-section" style="display:none;">
+                    <button id="start-timer-btn" class="action-btn">⏱️ بدء الفحص الزمني</button>
+                    <div class="timer-display">
+                        <span id="timer">90</span> ثانية
+                    </div>
+                    <div class="color-history" id="color-history"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- النتائج -->
+        <div class="results-section">
+            <div class="result-header">
+                <h3>النتيجة:</h3>
+                <div class="confidence-badge" id="confidence-badge">--%</div>
+            </div>
+            
+            <div class="color-preview" id="color-preview"></div>
+            <div class="result-text" id="result-text">
+                ابدأ بفحص الجودة (العبوة A)...
+            </div>
+            <div class="confidence" id="confidence"></div>
+            
+            <!-- الرسم البياني -->
+            <canvas id="time-chart" width="300" height="150" style="display:none;"></canvas>
+        </div>
+
+        <!-- التعليمات -->
+        <div class="instructions" id="instructions">
+            <h3>🎯 تعليمات فحص الجودة (العبوة A):</h3>
+            <ol>
+                <li>أضف 2 مل من الزيت إلى <strong>العبوة A (الجودة)</strong></li>
+                <li>ارجهـا بقوة لمدة 60 ثانية</li>
+                <li>اتركها ترتاح 30 ثانية للفصل</li>
+                <li>أزل الملصق المعتم</li>
+                <li>صور الطبقة السفلية بالكاميرا</li>
+            </ol>
+        </div>
+
+        <!-- رسالة الحالة -->
+        <div id="status-message" style="text-align: center; margin: 20px 0; padding: 15px; border-radius: 10px;"></div>
+    </div>
+
+    <!-- المكتبات -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="color-analyzer.js"></script>
+    <script src="time-analyzer.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
