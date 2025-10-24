@@ -1,0 +1,2 @@
+# zayton-detector
+detect qulity
