@@ -1,0 +1,380 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #333;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 15px;
+    background: white;
+    min-height: 100vh;
+}
+
+/* الرأس */
+header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+header h1 {
+    color: #2c3e50;
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+header p {
+    color: #7f8c8d;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.accuracy-badge {
+    display: inline-block;
+    background: #27ae60;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* تحذير التوجيه */
+.orientation-warning {
+    background: #e74c3c;
+    color: white;
+    padding: 12px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    display: none;
+}
+
+/* تقدم الفحص */
+.progress-section {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    position: relative;
+}
+
+.progress-section::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 10%;
+    right: 10%;
+    height: 3px;
+    background: #bdc3c7;
+    z-index: 1;
+}
+
+.progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    flex: 1;
+}
+
+.step-number {
+    width: 35px;
+    height: 35px;
+    border: 2px solid #bdc3c7;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    font-weight: bold;
+    margin-bottom: 5px;
+    transition: all 0.3s ease;
+}
+
+.step-label {
+    font-size: 12px;
+    text-align: center;
+    color: #7f8c8d;
+}
+
+.progress-step.active .step-number {
+    border-color: #3498db;
+    background: #3498db;
+    color: white;
+    transform: scale(1.1);
+}
+
+.progress-step.completed .step-number {
+    border-color: #27ae60;
+    background: #27ae60;
+    color: white;
+}
+
+/* قسم الكاميرا */
+.camera-section {
+    margin: 20px 0;
+}
+
+.camera-frame {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    background: black;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+#video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.grid-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.grid-line {
+    position: absolute;
+    background: rgba(52, 152, 219, 0.3);
+}
+
+.grid-line.horizontal {
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    transform: translateY(-50%);
+}
+
+.grid-line.vertical {
+    left: 50%;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    transform: translateX(-50%);
+}
+
+.target-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: 120px;
+    border: 2px solid #e74c3c;
+    border-radius: 50%;
+    animation: target-pulse 2s infinite;
+}
+
+@keyframes target-pulse {
+    0% { border-color: #e74c3c; transform: translate(-50%, -50%) scale(1); }
+    50% { border-color: #3498db; transform: translate(-50%, -50%) scale(1.05); }
+    100% { border-color: #e74c3c; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* أزرار التحكم */
+.control-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.test-btn {
+    padding: 12px 15px;
+    border: 2px solid #3498db;
+    background: white;
+    color: #3498db;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.test-btn.active {
+    background: #3498db;
+    color: white;
+}
+
+.action-btn {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    font-size: 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.action-btn:hover {
+    background: #c0392b;
+    transform: scale(1.02);
+}
+
+.action-btn:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* الفحص الزمني */
+.timer-display {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: #e74c3c;
+    margin: 10px 0;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.color-history {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin: 10px 0;
+    flex-wrap: wrap;
+}
+
+.color-swatch {
+    width: 25px;
+    height: 25px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.timer-pulse {
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* قسم النتائج */
+.results-section {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 15px;
+    margin: 20px 0;
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.result-header h3 {
+    color: #2c3e50;
+}
+
+.confidence-badge {
+    background: #27ae60;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.color-preview {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    margin: 0 auto 15px;
+    border: 3px solid #ddd;
+    background: #f0f0f0;
+}
+
+.result-text {
+    font-size: 18px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+    min-height: 27px;
+}
+
+.confidence {
+    text-align: center;
+    color: #7f8c8d;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* التعليمات */
+.instructions {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 15px 0;
+}
+
+.instructions h3 {
+    color: #856404;
+    margin-bottom: 10px;
+}
+
+.instructions ol {
+    padding-right: 20px;
+}
+
+.instructions li {
+    margin-bottom: 8px;
+    color: #856404;
+    line-height: 1.4;
+}
+
+/* responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    header h1 {
+        font-size: 20px;
+    }
+    
+    .camera-frame {
+        height: 200px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .camera-frame {
+        height: 300px;
+    }
+}
